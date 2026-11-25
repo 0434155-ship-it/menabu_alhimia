@@ -121,9 +121,9 @@ function card(p){
   const background = primary ? window.BAKERY_PHOTOS[primary].tones.join(', ') : '';
   const hint = detail ? `<span class="photo-hint">${viewLabel(media[1], 1)}</span>` : '';
   const ph = primary ? `<button type="button" class="ph has-img catalog-photo" style="--photo-matte:linear-gradient(${background})" data-photo="${p.id}" aria-haspopup="dialog" aria-label="Увеличить фото — ${esc(p.n)}">${tag}${cardImage(primary, p.n)}${hint}</button>` : `<div class="ph">${tag}<svg aria-hidden="true"><use href="#${icon}"/></svg></div>`;
-  return `<article class="card" data-card="${p.id}">${ph}
+  return `<article class="card" data-card="${p.id}">${ph}<div class="card-content">
   <h3>${esc(p.n)}</h3><p class="desc">${esc(p.d)}</p>${p.min?`<p class="note-min">Заказ от ${p.min} шт.</p>`:''}${vars}
-  <div class="buy"><span class="price">${priceLabel}${unit}</span>${priced ? ctl : inquiry}</div></article>`;
+  <div class="buy"><span class="price">${priceLabel}${unit}</span>${priced ? ctl : inquiry}</div></div></article>`;
 }
 let visibleProducts=8,shownCat='';
 function renderGrid(anim){

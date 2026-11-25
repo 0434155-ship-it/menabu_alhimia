@@ -3,7 +3,15 @@
 const el=id=>document.getElementById(id);
 const names={craft:'Наше ремесло',catalog:'Каталог',food:'Еда',about:'Про нас',awards:'Награды пекарни',founder:'Слово основателя',journal:'Трактат пекарни',specialty:'Спешелти',contacts:'Контакты',wholesale:'Для своих',stollen:'Штоллен',panettone:'Панеттоне'};
 const areas=[...document.querySelectorAll('main > [data-area]')];
-const separateAreas=new Set(['wholesale',...Object.keys(SEASONAL)]);
+const rooms={
+ top:['cover','workshop-route','alchemy'],
+ craft:['craft','about','founder','journal'],
+ food:['food','specialty'],
+ catalog:['catalog'],
+ contacts:['contacts'],
+ wholesale:['wholesale']
+};
+const roomFor={about:'craft',awards:'craft',founder:'craft',journal:'craft',specialty:'food'};
 function menu(open){
  el('menuToggle').setAttribute('aria-expanded',String(open));
  el('menuToggle').setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');el('mobileNav').hidden=!open;
@@ -27,17 +35,20 @@ function route(initial){
  else if(key==='exclusive'){selectCategory('exclusive');key='catalog'}
  else if(key==='catalog' && cat==='exclusive'){selectCategory('bread')}
  if(!Object.hasOwn(names,key)||(SEASONAL[key]&&!SEASONAL[key].open))key='top';
- const separate=separateAreas.has(key);
+ const room=roomFor[key]||key;
+ const separate=room!=='top';
+ const visible=rooms[room]||rooms.top;
+ document.body.dataset.room=room;
  document.body.dataset.view=key in SEASONAL?key:'home';document.body.classList.toggle('opt-page',key==='wholesale');
- areas.forEach(a=>{a.hidden=separate?a.dataset.area!==key:separateAreas.has(a.dataset.area)});
+ areas.forEach(a=>{a.hidden=!visible.includes(a.dataset.area)});
  el('breadcrumbs').hidden=!separate;el('crumbName').textContent=names[key]||'';
  const section = key === 'awards' ? 'about' : key;
- document.querySelectorAll('header nav a').forEach(a=>{if(a.hash==='#'+section)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});
+ document.querySelectorAll('header nav a').forEach(a=>{if(a.hash==='#'+room)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});
  menu(false);
- const target=chosenProduct ? el('grid').querySelector('[data-card="' + chosenProduct.id + '"]') : key==='top'||separate?null:el(key);
+ const target=chosenProduct ? el('grid').querySelector('[data-card="' + chosenProduct.id + '"]') : key==='top'||key===room?null:el(key)||el(section);
  function move(){if(target)target.scrollIntoView({block:'start',behavior:'instant'});else scrollTo({top:0,behavior:'instant'})}
  if(!initial||location.hash){requestAnimationFrame(()=>requestAnimationFrame(move))}
- if(!initial&&separate){const dest=el(key)?.querySelector('h2');if(dest){dest.tabIndex=-1;dest.focus({preventScroll:true})}}
+ if(!initial&&separate){const dest=el(key)?.querySelector('h1,h2');if(dest){dest.tabIndex=-1;dest.focus({preventScroll:true})}}
  observeRv();onScroll();document.dispatchEvent(new Event('bakeryroute'));
 }
 route(true);addEventListener('hashchange',()=>route(false));

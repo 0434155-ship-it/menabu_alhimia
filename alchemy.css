@@ -170,3 +170,82 @@ body.hp-document,.hp-page {background:#141b15;}
 .hp-page .hp-caramel img {mask-image:none;transform:none;}
 #menuDialog,.policy {background:#1c251e;color:var(--ink);border:1px solid var(--line);}
 #viewPhoto,#dialogScan {max-width:100%;object-fit:contain;}
+
+/* Workshop entrance and independent rooms */
+html[data-mode="workshop"] {--paper:#171914;--ink:#f7e9ce;--muted:#cbbda4;--line:#756042;}
+body[data-room] main {min-height:60vh;}
+body[data-room] .breadcrumbs {padding-block:16px;margin-bottom:0;}
+body[data-room] .breadcrumbs a {color:#eacd9a;}
+body[data-room] .cover {display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:stretch;min-height:clamp(490px,53vw,740px);background:radial-gradient(ellipse at 10% 25%,#3c4a32,transparent 68%),#111612;}
+body[data-room] .cover .cover-shell {grid-area:1/1/2/7;z-index:1;align-self:center;min-height:0;padding:clamp(26px,6vw,110px);}
+body[data-room] .cover .cover-copy h1 {font-size:clamp(62px,9.4vw,154px);line-height:.82;}
+body[data-room] .cover .cover-photo {grid-area:1/7/2/13;align-self:center;height:80%;width:85%;margin:0;border-radius:48% 48% 8px 8px / 20% 20% 8px 8px;background:#1d2118;}
+body[data-room] .cover-slide {inset:12px;}
+body[data-room] .cover .photo-controls {position:static;margin-top:24px;flex-wrap:wrap;}
+body[data-room] .cover-shell {display:block;}
+.workshop-doors {padding:clamp(28px,5vw,75px) 0;background:#171c16;border-bottom:1px solid var(--line);}
+.doors-grid {display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-auto-rows:minmax(148px,auto);gap:10px;}
+.door {display:flex;align-items:end;position:relative;overflow:hidden;padding:clamp(16px,2.8vw,40px);border:1px solid #89734e;background:linear-gradient(145deg,#263a2c,#171f18);color:#f4dfbc;text-decoration:none;min-width:0;}
+.door:nth-child(3n+2) {background:linear-gradient(145deg,#433021,#201a16);}
+.door:nth-child(3n+3) {background:linear-gradient(145deg,#323a25,#191e17);}
+.door:hover,.door:focus-visible {border-color:#f4d39d;box-shadow:inset 0 0 25px #d6af682d;}
+.door > div {position:relative;z-index:1;}
+.door strong {display:block;margin:.24em 0;font:400 clamp(26px,3vw,45px)/1.02 var(--serif);}
+.door-kicker,.door-action {display:block;font-size:.8rem;color:#d9c29b;}
+.door-main {grid-row:span 2;align-items:end;min-height:340px;}
+.door-main img {position:absolute;inset:0 0 auto;width:100%;height:67%;object-position:center top;}
+.door-main strong {font-size:clamp(35px,4vw,64px);}
+body[data-room="catalog"] #catalog {padding-top:clamp(12px,3vw,46px);}
+#catalog .catalog-heading {display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;border:0;border-bottom:1px solid var(--line);outline:none;background:none;padding:0 0 clamp(20px,4vw,62px);margin:0 0 26px;}
+#catalog .catalog-heading h1 {margin:8px 0 0;font:400 clamp(48px,8vw,120px)/.9 var(--serif);color:#f7deb4;}
+.shop-layout {display:grid;grid-template-columns:minmax(155px,1fr) minmax(0,4fr);gap:clamp(16px,4vw,65px);align-items:start;}
+.shop-index {position:sticky;top:calc(var(--top-height,92px) + 20px);padding:16px;background:#202920;border:1px solid var(--line);}
+.shop-index h2 {margin:0;color:#f5d6a1;font:400 28px/1 var(--serif);}
+.shop-index a {display:block;padding-top:13px;color:#ead5af;font-size:.83rem;}
+#catalog .shop-index .tabs {display:grid;margin:14px 0 0;padding:0;gap:4px;border:0;overflow:visible;}
+#catalog .shop-index .tab {text-align:left;white-space:normal;}
+#catalog .shop-shelf {min-width:0;}
+#catalog .shop-shelf .catban {margin:0 0 14px;min-height:115px;}
+#catalog .shop-shelf .catban h2 {order:0;font:400 clamp(24px,4vw,47px)/1 var(--serif);margin:0;}
+#catalog .shop-shelf .catban p {order:1;}
+#catalog .shop-shelf .grid {display:grid;grid-template-columns:minmax(0,1fr);gap:11px;}
+#catalog .shop-shelf .card {display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);align-items:stretch;gap:clamp(11px,3vw,34px);}
+#catalog .shop-shelf .card .ph {margin:0;aspect-ratio:4/3;align-self:center;}
+#catalog .card-content {display:flex;flex-direction:column;min-width:0;padding:clamp(3px,1vw,14px) 0;}
+#catalog .card-content h3 {font-size:clamp(21px,3.1vw,44px);}
+#catalog .card-content .desc {margin:6px 0 12px;}
+#catalog .card-content .vars {margin-bottom:12px;}
+#catalog .card-content .buy {justify-content:space-between;}
+.hp-page .hp-hero {grid-template-columns:minmax(0,2fr) minmax(0,1fr);}
+.hp-page .hp-hero-inner {padding-block:clamp(22px,3.5vw,62px);}
+.hp-page .hp-hero-media {width:calc(100% - 40px);max-height:270px;}
+.hp-page .hp-hero h1 {font-size:clamp(42px,6vw,90px);}
+.hp-page .hp-tabs {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+.hp-page .hp-tabs a {justify-content:center;text-align:center;}
+.hp-page .hp-panel {grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(18px,4vw,62px);}
+.hp-page .hp-detail {grid-column:1;grid-row:1;}
+.hp-page .hp-gallery {grid-column:2;grid-row:1;align-self:start;}
+@media(max-width:760px) {
+  body[data-room] .cover {grid-template-columns:1fr;min-height:0;}
+  body[data-room] .cover .cover-shell {grid-area:1/1;min-height:0;padding:35px 20px 20px;}
+  body[data-room] .cover .cover-copy h1 {font-size:clamp(60px,14vw,105px);}
+  body[data-room] .cover .cover-photo {grid-area:2/1;width:calc(100% - 38px);height:auto;margin:5px auto 25px;aspect-ratio:4/3;}
+  .doors-grid {grid-template-columns:1fr 1fr;grid-auto-rows:auto;}
+  .door {min-height:150px;}
+  .door-main {grid-column:1/-1;grid-row:auto;min-height:245px;}
+  .door-main img {inset:0 0 0 auto;width:53%;height:100%;object-position:right center;}
+  .door-main > div {max-width:48%;}
+  .shop-layout {grid-template-columns:minmax(0,1fr);gap:15px;}
+  .shop-index {position:static;padding:12px;}
+  #catalog .shop-index .tabs {display:flex;flex-wrap:wrap;gap:6px;}
+  #catalog .shop-shelf .card {grid-template-columns:minmax(0,2fr) minmax(0,3fr);}
+  .hp-page .hp-hero {grid-template-columns:minmax(0,1fr);}
+  .hp-page .hp-tabs a {font-size:clamp(15px,4.7vw,24px);padding:8px 5px;}
+  .hp-page .hp-panel {grid-template-columns:minmax(0,1fr);}
+  .hp-page .hp-gallery {grid-column:1;grid-row:2;}
+}
+@media(max-width:450px) {
+  #catalog .shop-shelf .card {grid-template-columns:minmax(0,1fr);}
+  #catalog .shop-shelf .card .ph {aspect-ratio:16/10;}
+  #catalog .card-content .buy {flex-direction:row;align-items:center;}
+}
