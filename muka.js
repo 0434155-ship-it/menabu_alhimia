@@ -22,6 +22,7 @@ function route(initial){
    location.replace('preorder/#' + key);
    return;
  }
+ const chosenCollection=CATS.find(category=>'collection-'+category.id===key);
  const chosenProduct = key.startsWith('product-') ? P.find(p => p.id === key.slice(8)) : null;
  if (chosenProduct) {
    selectCategory(chosenProduct.c);
@@ -32,6 +33,7 @@ function route(initial){
    }
    key = 'catalog';
  }
+ else if(chosenCollection){selectCategory(chosenCollection.id);key='catalog'}
  else if(key==='exclusive'){selectCategory('exclusive');key='catalog'}
  else if(key==='catalog' && cat==='exclusive'){selectCategory('bread')}
  if(!Object.hasOwn(names,key)||(SEASONAL[key]&&!SEASONAL[key].open))key='top';
