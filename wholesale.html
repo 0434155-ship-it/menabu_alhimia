@@ -12,15 +12,38 @@
   <script src="wholesale.js" defer></script>
   <script src="photo-sources.js?v=selection" defer></script>
   <script src="wholesale-data.js" defer></script>
-  <script src="wholesale-catalog.js" defer></script>
+  <script src="partner-catalog.js" defer></script>
+  <script src="wholesale-catalog.js?v=partner" defer></script>
 </head>
 <body>
   <header class="mast"><div class="wrap"><a href="./#top" aria-label="Между Нами Булочками, на главную"><img src="muka/brand.svg" alt="Между Нами Булочками" width="162" height="78"></a><a href="./#wholesale">О партнёрстве&nbsp; ↗</a></div></header>
   <main class="wrap">
     <div id="gate" class="gate">
-      <div class="intro"><p class="eyebrow">Для кафе, ресторанов, отелей и магазинов</p><h1>Оптовый каталог</h1><p id="gateNote" class="lead" role="status">Хлеб на закваске, слоёная выпечка, десерты и сытные изделия. Изучите ассортимент и запросите оптовые цены у пекарни.</p><a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить оптовые цены ↗</a> <a class="browse" href="#pricebook">Смотреть ассортимент ↓</a></div>
+      <div class="intro"><p class="eyebrow">Для кафе, ресторанов, отелей и магазинов</p><h1>Оптовый каталог</h1><p id="gateNote" class="lead" role="status">Хлеб на закваске, слоёная выпечка, десерты и сытные изделия. Изучите ассортимент и запросите оптовые цены у пекарни.</p><a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить оптовые цены ↗</a> <a class="browse" href="#pricebook">Смотреть ассортимент ↓</a> <a class="browse" href="#partner">Кабинет партнёра</a></div>
       <img class="bake" src="muka/selection/860.jpg" alt="Французская булка пекарни" width="600" height="800">
     </div>
+    <section class="partner-panel" id="partner" aria-labelledby="partner-title">
+      <h2 id="partner-title">Кабинет оптового партнёра</h2>
+      <p>Сохраняйте любимые изделия и собирайте заявки на поставку.</p>
+      <p role="status" aria-live="polite"></p>
+      <form class="partner-form" hidden>
+        <label>Компания<input name="company" autocomplete="organization" maxlength="100"></label>
+        <label>Электронная почта<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+        <label>Пароль<input name="password" type="password" minlength="12" maxlength="128" required></label>
+        <div class="partner-actions">
+          <button class="action" type="submit">Зарегистрироваться</button>
+          <button type="button" data-mode>У меня уже есть аккаунт</button>
+        </div>
+      </form>
+      <div data-dashboard hidden>
+        <div class="partner-actions"><strong data-company></strong><button type="button" data-logout>Выйти</button><a href="#pricebook">В каталог ↓</a></div>
+        <div class="partner-columns">
+          <section><h3>Избранное</h3><ul data-favorites></ul></section>
+          <section><h3>Текущая заявка</h3><ul data-cart></ul><button class="action" type="button" data-order disabled>Сохранить заявку</button></section>
+          <section><h3>История заявок</h3><ul data-history></ul></section>
+        </div>
+      </div>
+    </section>
     <section id="pricebook" aria-labelledby="assortment-title">
       <h2 id="assortment-title">Ассортимент для поставок</h2>
       <p class="muted">Вес указан для оптовой фасовки. Наличие, минимальную партию и доставку подтвердит менеджер. Актуальный состав и условия хранения сверяйте с маркировкой партии.</p>

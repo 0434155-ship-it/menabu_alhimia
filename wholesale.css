@@ -65,3 +65,19 @@ td:last-child{font-weight:600}
 .book-end { padding-block: 26px 50px; }
 .book-end p { margin: 8px 0 0; }
 @media (max-width: 440px) { .browse { margin-left: 0; display: block; } }
+
+.partner-panel { border-block: 1px solid var(--line); padding-block: clamp(1.6rem, 4vw, 3rem); scroll-margin-top: 1rem; }
+.partner-panel + #pricebook { border-top: 0; }
+.partner-form { max-width: 35rem; display: grid; gap: 12px; }
+.partner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-block: 8px; }
+.partner-panel button, .partner-actions button { font: inherit; cursor: pointer; padding: 6px 10px; }
+.partner-panel button:not(.action), .partner-actions button:not(.action) { background: #fffaf1; border: 1px solid var(--line); color: var(--wine); }
+.partner-panel button:disabled { opacity: .55; cursor: default; }
+.partner-actions button[aria-pressed="true"] { background: #eedce0; }
+.partner-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px,100%),1fr)); gap: 14px; }
+.partner-columns section { background: #fffaf1; border: 1px solid var(--line); padding: 16px; min-width: 0; }
+.partner-columns h3 { margin: 0; font: 400 1.35rem var(--serif); }
+.partner-columns ul { padding-left: 1.1rem; }
+.partner-columns li + li { margin-top: 8px; }
+.partner-columns li button { margin: 3px; }
+.partner-columns input[type="number"] { width: 6em; display: block; }

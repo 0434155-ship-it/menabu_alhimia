@@ -46,7 +46,7 @@
     ]) {
       details.append(element('dt', label), element('dd', value));
     }
-    item.append(details);
+    item.append(details, window.partnerCatalog.controls({name}, variant));
     if (!sharedPhotos && variant.photos.length) item.append(photoGallery(variant.photos, name));
     return item;
   }
@@ -83,6 +83,7 @@
       ].join(' '));
       return terms.every(term => searchText.includes(term));
     });
+    window.partnerCatalog.reset();
     const fragment = document.createDocumentFragment();
     for (const option of category.options) {
       if (option.value === '') continue;
@@ -96,6 +97,7 @@
       fragment.append(group);
     }
     results.replaceChildren(fragment);
+    window.partnerCatalog.ready();
     const variants = filtered.reduce((total, product) => total + product.variants.length, 0);
     count.textContent = variants ? 'Изделий: ' + filtered.length + ' · Фасовок и вкусов: ' + variants : 'Ничего не найдено. Попробуйте другое название или выберите все категории.';
   }
