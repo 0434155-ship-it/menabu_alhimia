@@ -1,6 +1,6 @@
 @font-face{font-family:MenabuGolos;src:url('muka/golos.woff') format('woff');font-weight:400 900;font-display:swap}
 @font-face{font-family:MenabuSerif;src:url('muka/serif.woff') format('woff');font-weight:200 900;font-display:swap}
-:root{--paper:#f6f1e8;--ink:#261d18;--muted:#63574b;--line:#d7cbbc;--accent:#75372d;--serif:MenabuSerif,Georgia,serif;--sans:MenabuGolos,Arial,sans-serif}
+:root{--paper:#faf8f3;--ink:#252019;--muted:#665e53;--line:#dcd5c9;--accent:#6a3a29;--serif:MenabuSerif,Georgia,serif;--sans:MenabuGolos,Arial,sans-serif}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans)}
@@ -8,7 +8,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--s
 .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 a{color:inherit;text-underline-offset:4px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.mast{background:#29201a;color:#f7f1e6}
+.mast{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line)}
 .mast-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:66px}
 .wordmark{font:400 1.22rem/1.05 var(--serif);text-decoration:none;white-space:nowrap}
 .wordmark em{font-weight:400}
@@ -26,10 +26,10 @@ label{display:block;color:var(--muted);font-size:.8rem}
 input,select{width:100%;min-height:42px;margin-top:4px;border:1px solid var(--line);border-radius:0;background:#fdf9f2;color:var(--ink);font:inherit;padding:8px 11px}
 .count,.catalog-note{font-size:.8rem;color:var(--muted);margin:11px 0 20px}
 .collection{margin-bottom:32px}
-.collection-title{font-size:clamp(1.45rem,3vw,2.35rem);padding:13px 14px;background:#e8ddcd;border-bottom:1px solid var(--line)}
-.wh-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px;align-items:start}
-.wh-product{min-width:0;background:#fdf9f2;border:1px solid var(--line)}
-.product-content{padding:14px}
+.collection-title{font-size:clamp(1.45rem,3vw,2.35rem);padding:10px 0;border-bottom:1px solid var(--line)}
+.wh-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px;align-items:start}
+.wh-product{min-width:0;background:transparent;border-bottom:1px solid var(--line)}
+.product-content{padding:12px 0}
 .product-content h4{font:400 1.37rem/1.16 var(--serif);margin:0 0 7px;overflow-wrap:anywhere}
 .product-description{font-size:.89rem;margin:0 0 9px}
 .product-weight{font-size:.83rem;color:var(--muted);overflow-wrap:anywhere;margin:0 0 9px}
@@ -43,10 +43,10 @@ input,select{width:100%;min-height:42px;margin-top:4px;border:1px solid var(--li
 .variant h5,.variant dl{margin:0 0 8px}
 .variant dt{font-weight:650;font-size:.83rem}
 .variant dd{margin:0 0 7px;font-size:.87rem;overflow-wrap:anywhere}
-.product-photos{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;padding:8px 8px 0}
+.product-photos{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;padding:0}
 .product-photos figure{min-width:0;margin:0}
 .product-photos a,.product-photos img{display:block}
-.product-photos a{background:#eae1d4}
+.product-photos a{background:#ede7db}
 .product-photos img{width:100%;height:clamp(112px,15vw,180px);object-fit:contain}
 .product-photos figcaption{color:var(--muted);font-size:.75rem;padding:3px 0 0}
 .partner-panel{display:none;padding-block:23px;border-bottom:1px solid var(--line);scroll-margin-top:12px}
@@ -79,3 +79,9 @@ input,select{width:100%;min-height:42px;margin-top:4px;border:1px solid var(--li
   .collection-title{padding-inline:8px}
 }
 \n@media(max-width:370px){.wh-grid{grid-template-columns:1fr}.product-photos img{height:145px}}\n
+.catalog-kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin:0 0 8px}
+.category-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+.category-tabs button{font:inherit;font-size:.8rem;background:transparent;color:var(--ink);border:1px solid var(--line);padding:7px 11px;cursor:pointer}
+.category-tabs button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.product-price{font-size:1rem;font-weight:650;margin:0 0 8px}
+@media(min-width:601px) and (max-width:880px){.wh-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}

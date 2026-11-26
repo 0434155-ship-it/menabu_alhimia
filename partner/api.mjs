@@ -35,7 +35,7 @@ function productKeys(products) {
   })));
 }
 
-export function partnerApi(database, products) {
+export function partnerApi(database, products, prices = {}) {
   const keys = productKeys(products);
   return async request => {
     const url = new URL(request.url);
@@ -104,7 +104,7 @@ export function partnerApi(database, products) {
         db('SELECT item FROM partner_favorites WHERE account_id=? ORDER BY item',account.id).all(),
         db('SELECT id,created,items FROM partner_orders WHERE account_id=? ORDER BY created DESC,rowid DESC',account.id).all()
       ]);
-      return json({company:account.company, favorites:favorites.results.map(row=>row.item), orders:orders.results.map(row=>({...row,items:JSON.parse(row.items)}))});
+      return json({company:account.company, favorites:favorites.results.map(row=>row.item), prices, orders:orders.results.map(row=>({...row,items:JSON.parse(row.items)}))});
     }
 
     if (write && action === 'favorite') {

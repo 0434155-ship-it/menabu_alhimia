@@ -119,6 +119,10 @@
   }
 
   window.partnerCatalog = {
+    isSignedIn() { return Boolean(state); },
+    price(product,variant) {
+      return state?.prices?.[[product.name,variant.label,variant.weight].join('|')];
+    },
     controls(product,variant) {
       const item=[product.name,variant.label,variant.weight].join('|');
       const wrap = element('div');
@@ -150,6 +154,7 @@
       status.textContent=available ? '' : 'В этой версии сайта кабинет ещё не подключён.';
     }
     display();
+    document.dispatchEvent(new Event('menabu-partner-state'));
   }
 
   panel.querySelector('[data-mode]').addEventListener('click',()=>{registration=!registration;mode();});

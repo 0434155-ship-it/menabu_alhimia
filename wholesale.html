@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,11 +8,11 @@
   <meta name="theme-color" content="#1b1916">
   <title>Оптовый каталог · Между Нами Булочками</title>
   <link rel="icon" href="assets/logo-0.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="wholesale.css?v=photo-catalog">
+  <link rel="stylesheet" href="wholesale.css?v=pricebook">
   <script src="wholesale.js" defer></script>
-  <script src="photo-sources.js?v=selection" defer></script>
+  <script src="photo-sources.js?v=pricebook" defer></script>
   <script src="wholesale-data.js?v=photo-catalog" defer></script>
-  <script src="partner-catalog.js" defer></script>
+  <script src="partner-catalog.js?v=pricebook" defer></script>
   <script src="wholesale-catalog.js?v=photo-catalog" defer></script>
 </head>
 <body>
@@ -24,8 +24,8 @@
   </header>
   <main class="wrap">
     <header class="wh-intro">
-      <h1>Оптовый каталог</h1>
-      <a class="price-link" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить цены <span aria-hidden="true">↗</span></a>
+      <div><p class="catalog-kicker">Между нами булочками</p><h1>Оптовый каталог</h1></div>
+      <a class="price-link" href="#partner">Войти для просмотра цен <span aria-hidden="true">↗</span></a>
     </header>
     <section class="partner-panel" id="partner" aria-labelledby="partner-title">
       <h2 id="partner-title">Кабинет оптового партнёра</h2>
@@ -51,6 +51,7 @@
     </section>
     <section id="pricebook" aria-labelledby="assortment-title">
       <h2 id="assortment-title" class="visually-hidden">Ассортимент для поставок</h2>
+      <div class="category-tabs" id="wholesale-tabs" aria-label="Категории ассортимента"></div>
       <div class="controls">
         <label>Изделие или ингредиент<input type="search" id="wholesale-search" placeholder="Например, тартин или фисташка" aria-controls="wholesale-products"></label>
         <label>Категория<select id="wholesale-category" aria-controls="wholesale-products">

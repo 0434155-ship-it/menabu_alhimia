@@ -2,6 +2,8 @@
   const search = document.getElementById('wholesale-search');
   const category = document.getElementById('wholesale-category');
   const photos = document.getElementById('wholesale-photos');
+  const tabs = document.getElementById('wholesale-tabs');
+  const rubles = new Intl.NumberFormat('ru-RU', {style:'currency', currency:'RUB', maximumFractionDigits:0});
   const count = document.getElementById('wholesale-count');
   const results = document.getElementById('wholesale-products');
 
@@ -25,6 +27,7 @@
       const image = element('img');
       image.src = path;
       image.alt = name + ' — ' + caption;
+      if (info.source) link.title = info.source;
       image.width = info.width;
       image.height = info.height;
       image.loading = 'lazy';
@@ -36,13 +39,15 @@
     return gallery;
   }
 
-  function variantDetails(variant) {
+  function variantDetails(product, variant) {
     const item = element('div', '', 'variant');
     if (variant.label) item.append(element('h5', variant.label));
     const details = element('dl');
     const weight = variant.weight ? variant.weight + ' г' : 'Уточнить';
     for (const [label, value] of [
       ['Вес', weight],
+      ['Оптовая цена', formatPrice(product, variant)],
+      ...(variant.minimum ? [['Минимальная партия', variant.minimum]] : []),
       ['Состав', variant.ingredients || 'Уточнить у менеджера'],
       ['Хранение', variant.storage || 'Уточнить у менеджера']
     ]) {
@@ -50,6 +55,11 @@
     }
     item.append(details);
     return item;
+  }
+
+  function formatPrice(product, variant) {
+    const value = window.partnerCatalog.price(product, variant);
+    return Number.isFinite(value) ? rubles.format(value) + ' / шт.' : (window.partnerCatalog.isSignedIn() ? 'Уточнить у менеджера' : 'В кабинете партнёра');
   }
 
   function productCard(product) {
@@ -71,13 +81,18 @@
       return [variant.label, variant.weight && (variant.weight + ' г')].filter(Boolean).join(' · ');
     }).filter(Boolean);
     if (weights.length) content.append(element('p', weights.join(' / '), 'product-weight'));
+    const prices = product.variants.map(variant => window.partnerCatalog.price(product, variant)).filter(Number.isFinite);
+    if (prices.length) {
+      const prefix = new Set(prices).size > 1 ? 'От ' : '';
+      content.append(element('p', prefix + rubles.format(Math.min(...prices)) + ' / шт.', 'product-price'));
+    }
 
     const details = element('details', '', 'product-details');
     const summary = element('summary', 'Состав и хранение', 'product-summary');
     details.append(summary);
     const body = element('div', '', 'product-body');
     for (const variant of product.variants) {
-      const specification = variantDetails(variant);
+      const specification = variantDetails(product, variant);
       specification.append(window.partnerCatalog.controls(product, variant));
       body.append(specification);
     }
@@ -99,6 +114,11 @@
 
   function render() {
     const selected = category.value;
+    const priceLink = document.querySelector('.price-link');
+    priceLink.firstChild.textContent = window.partnerCatalog.isSignedIn() ? 'Кабинет партнёра ' : 'Войти для просмотра цен ';
+    for (const button of tabs.querySelectorAll('button')) {
+      button.setAttribute('aria-pressed', String(button.dataset.category === selected));
+    }
     const terms = normalized(search.value).trim().split(/\s+/).filter(Boolean);
     const filtered = window.WHOLESALE_PRODUCTS.filter(product => {
       if (selected !== '' && Number(selected) !== product.category) return false;
@@ -129,8 +149,19 @@
     count.textContent = variants ? 'Изделий: ' + filtered.length + ' · Фасовок и вкусов: ' + variants : 'Ничего не найдено. Попробуйте другое название или выберите все категории.';
   }
 
+  for (const option of category.options) {
+    const button = element('button', option.textContent);
+    button.type = 'button';
+    button.dataset.category = option.value;
+    button.addEventListener('click', () => {
+      category.value = option.value;
+      render();
+    });
+    tabs.append(button);
+  }
   search.addEventListener('input', render);
   category.addEventListener('change', render);
   photos.addEventListener('change', render);
+  document.addEventListener('menabu-partner-state', render);
   render();
 })();

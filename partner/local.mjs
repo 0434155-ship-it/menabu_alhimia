@@ -24,7 +24,12 @@ const database = {
     }; }};
   }
 };
-const api = partnerApi(database,scope.window.WHOLESALE_PRODUCTS);
+const priceFile = process.env.MENABU_WHOLESALE_PRICES || resolve(root,'.partner-data','wholesale-prices.json');
+const prices = await readFile(priceFile,'utf8').then(JSON.parse).catch(error => {
+  if (error.code === 'ENOENT') return {};
+  throw error;
+});
+const api = partnerApi(database,scope.window.WHOLESALE_PRODUCTS,prices);
 const types = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.jpg':'image/jpeg','.webp':'image/webp','.png':'image/png','.woff':'font/woff','.woff2':'font/woff2','.ttf':'font/ttf'};
 const rootPrefix = root.endsWith(sep) ? root : root+sep;
 const host = '127.0.0.1';
