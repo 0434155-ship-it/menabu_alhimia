@@ -6,18 +6,41 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#1b1916">
-  <title>Для своих · Оптовый каталог · Между Нами Булочками</title>
+  <title>Оптовый каталог · Между Нами Булочками</title>
   <link rel="icon" href="assets/logo-0.svg" type="image/svg+xml">
   <link rel="stylesheet" href="wholesale.css">
   <script src="wholesale.js" defer></script>
-<link rel="stylesheet" href="alchemy.css?v=rooms"><link rel="stylesheet" href="tasting.css"></head>
+  <script src="photo-sources.js?v=selection" defer></script>
+  <script src="wholesale-data.js" defer></script>
+  <script src="wholesale-catalog.js" defer></script>
+</head>
 <body>
   <header class="mast"><div class="wrap"><a href="./#top" aria-label="Между Нами Булочками, на главную"><img src="muka/brand.svg" alt="Между Нами Булочками" width="162" height="78"></a><a href="./#wholesale">О партнёрстве&nbsp; ↗</a></div></header>
   <main class="wrap">
     <div id="gate" class="gate">
-      <div class="intro"><p class="eyebrow">Для своих</p><h1>Оптовый каталог</h1><p id="gateNote" class="lead" role="status">Каталог открывается по ссылке от пекарни. Напишите Вере, чтобы получить доступ к ассортименту и оптовым ценам.</p><a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить доступ в Telegram ↗</a></div>
-      <img class="bake" src="muka/november/bread-table.webp" alt="Свежий хлеб на столе пекарни" width="1720" height="1147">
+      <div class="intro"><p class="eyebrow">Для кафе, ресторанов, отелей и магазинов</p><h1>Оптовый каталог</h1><p id="gateNote" class="lead" role="status">Хлеб на закваске, слоёная выпечка, десерты и сытные изделия. Изучите ассортимент и запросите оптовые цены у пекарни.</p><a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить оптовые цены ↗</a> <a class="browse" href="#pricebook">Смотреть ассортимент ↓</a></div>
+      <img class="bake" src="muka/selection/860.jpg" alt="Французская булка пекарни" width="600" height="800">
     </div>
+    <section id="pricebook" aria-labelledby="assortment-title">
+      <h2 id="assortment-title">Ассортимент для поставок</h2>
+      <p class="muted">Вес указан для оптовой фасовки. Наличие, минимальную партию и доставку подтвердит менеджер. Актуальный состав и условия хранения сверяйте с маркировкой партии.</p>
+      <div class="controls">
+        <label>Изделие или ингредиент<input type="search" id="wholesale-search" placeholder="Например, тартин или фисташка" aria-controls="wholesale-products"></label>
+        <label>Категория<select id="wholesale-category" aria-controls="wholesale-products">
+          <option value="">Все категории</option>
+          <option value="0">Хлеб на закваске</option>
+          <option value="1">Слоёная выпечка и булочки</option>
+          <option value="2">Десерты</option>
+          <option value="3">Сэндвичи и сытные круассаны</option>
+        </select></label>
+      </div>
+      <p class="count" id="wholesale-count" role="status"></p>
+      <div id="wholesale-products"></div>
+    </section>
+    <footer class="book-end">
+      <div><h2>Поставки для вашего заведения</h2><p>Пришлите список изделий, желаемый объём и адрес поставки.</p></div>
+      <a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Обсудить поставку в Telegram</a>
+    </footer>
     <noscript><p>Для просмотра прайса включите JavaScript или запросите каталог у Веры в Telegram.</p></noscript>
   </main>
 </body>

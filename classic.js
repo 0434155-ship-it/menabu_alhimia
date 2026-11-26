@@ -1,13 +1,13 @@
 
 document.documentElement.classList.add('js');
 const CATS=[
- {id:'bread',name:'Хлеб на закваске',icon:'i-loaf',img:'1759_1',kick:'холодная ферментация от 12 часов'},
- {id:'puff',name:'Слоёное и булочки',icon:'i-croissant',img:'1992_1',kick:'масло 82,5%, раскатка вручную'},
- {id:'canele',name:'Канеле',icon:'i-canele',img:'1645_2',kick:'бордоская классика'},
- {id:'dessert',name:'Десерты',icon:'i-cake',img:'1727_1',kick:'обновляем витрину каждый сезон'},
+ {id:'bread',name:'Хлеб на закваске',icon:'i-loaf',img:'muka/selection/860.jpg',kick:'холодная ферментация от 12 часов'},
+ {id:'puff',name:'Слоёное и булочки',icon:'i-croissant',img:'muka/selection/1448.jpg',kick:'масло 82,5%, раскатка вручную'},
+ {id:'canele',name:'Канеле',icon:'i-canele',img:null,kick:'бордоская классика'},
+ {id:'dessert',name:'Десерты',icon:'i-cake',img:'muka/selection/1949.jpg',kick:'обновляем витрину каждый сезон'},
  {id:'cakes',name:'Торты',icon:'i-cake',img:'1009_1',kick:'целиком или по частям'},
  {id:'sand',name:'Сэндвичи',icon:'i-sandwich',img:'1012_4c',kick:'на нашем хлебе и круассанах'},
- {id:'exclusive',name:'Исключительно для вас',icon:'i-loaf',img:'1992_1',kick:'готовим по предварительному заказу'},
+ {id:'exclusive',name:'Исключительно для вас',icon:'i-loaf',img:'muka/selection/1048.jpg',kick:'готовим по предварительному заказу'},
 ].filter(category => RETAIL_PRODUCTS.some(product => product.c === category.id));
 const P = RETAIL_PRODUCTS;
 
@@ -78,24 +78,11 @@ function productViews(id, index) {
   const product = P.find(p => p.id === id);
   const variant = product?.v[index];
   if (!variant || variant.photo === null) return [];
-  const options = window.CATALOG_VIEWS[product.gallery || id] || [];
-  return options.length === 1 ? options[0] : (options[variant.photo ?? index] || []);
+  return window.CATALOG_VIEWS[id]?.[index] || [];
 }
 
 function viewLabel(path, index) {
-  const labels = {
-    'muka/catalog/dragon-roll.webp': 'Целиком',
-    'muka/catalog/dragon-roll-detail.webp': 'Крупный план',
-    'muka/catalog/pumpkin-close.webp': 'Крупный план',
-    'muka/november/baguettes.webp': 'Крупный план',
-    'muka/november/french-oven.webp': 'В печи',
-    'muka/catalog/19-3.webp': 'В разрезе',
-    'muka/catalog/10-2.webp': 'В разрезе',
-    'muka/catalog/11-1.webp': 'В разрезе',
-    'muka/catalog/11-2.webp': 'В разрезе',
-    'muka/november/blueberry.webp': 'В разрезе'
-  };
-  return labels[path] || (index === 0 ? 'Основной кадр' : 'В разрезе');
+  return window.BAKERY_PHOTOS[path]?.label || (index === 0 ? 'Основной кадр' : 'В разрезе');
 }
 
 function cardImage(path, name) {
@@ -136,7 +123,11 @@ function renderGrid(anim){
 }
 function renderBan(swap){
   const c=CATS.find(x=>x.id===cat),b=$('#catban');
-  $('#catbanImg').src=mnbMedia('img/'+c.img+'.jpg');$('#catbanN').textContent=c.kick;$('#catbanT').textContent=c.name;
+  const banner = $('#catbanImg');
+  banner.hidden = !c.img;
+  if (c.img) banner.src = mnbMedia(c.img);
+  else banner.removeAttribute('src');
+  $('#catbanN').textContent=c.kick;$('#catbanT').textContent=c.name;
   if(swap){b.classList.remove('swap');void b.offsetWidth;b.classList.add('swap')}
 }
 document.getElementById('moreProducts').onclick=()=>{const prev=visibleProducts;visibleProducts+=8;renderGrid(false);const added=$('#grid').children[prev];if(added){added.setAttribute('tabindex','-1');added.focus({preventScroll:true});added.scrollIntoView({behavior:'instant',block:'nearest'})}};
