@@ -178,3 +178,7 @@ html.hp-in-shop #mb-standard-store{display:none!important}
 @media (max-width: 830px) {
   .hp-hero-media img { object-position: center; aspect-ratio: auto; }
 }
+
+.hp-more { padding-block: clamp(2rem, 5vw, 4rem); }
+.hp-more h2 { font-family: var(--hp-serif, Georgia, serif); }
+.hp-more p { max-width: 55ch; }

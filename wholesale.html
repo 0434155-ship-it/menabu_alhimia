@@ -1,23 +1,79 @@
 <!doctype html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#1b1916">
-  <title>Для своих · Оптовый каталог · Между Нами Булочками</title>
+  <title>Для своих · Между Нами Булочками</title>
   <link rel="icon" href="assets/logo-0.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="wholesale.css">
+  <link rel="stylesheet" href="wholesale.css?v=portal">
   <script src="wholesale.js" defer></script>
-<link rel="stylesheet" href="alchemy.css?v=rooms"><link rel="stylesheet" href="tasting.css"></head>
+  <script src="photo-sources.js?v=pricebook" defer></script>
+  <script src="wholesale-data.js?v=photo-catalog" defer></script>
+  <script src="partner-catalog.js?v=portal" defer></script>
+  <script src="wholesale-catalog.js?v=portal" defer></script>
+</head>
 <body>
-  <header class="mast"><div class="wrap"><a href="./#top" aria-label="Между Нами Булочками, на главную"><img src="muka/brand.svg" alt="Между Нами Булочками" width="162" height="78"></a><a href="./#wholesale">О партнёрстве&nbsp; ↗</a></div></header>
-  <main class="wrap">
-    <div id="gate" class="gate">
-      <div class="intro"><p class="eyebrow">Для своих</p><h1>Оптовый каталог</h1><p id="gateNote" class="lead" role="status">Каталог открывается по ссылке от пекарни. Напишите Вере, чтобы получить доступ к ассортименту и оптовым ценам.</p><a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Запросить доступ в Telegram ↗</a></div>
-      <img class="bake" src="muka/november/bread-table.webp" alt="Свежий хлеб на столе пекарни" width="1720" height="1147">
+  <header class="mast">
+    <div class="wrap mast-inner">
+      <a class="wordmark" href="./#top" aria-label="Между Нами Булочками, на главную">Между нами <em>булочками</em></a>
+      <nav aria-label="Для партнёров"><a href="./#wholesale">О сотрудничестве</a><a class="nav-account" href="#partner" data-portal-only hidden>Личный кабинет</a><a href="#pricebook" data-portal-only hidden>Оптовый каталог</a></nav>
     </div>
+  </header>
+  <main class="wrap" data-portal>
+    <header class="wh-intro">
+      <div><p class="catalog-kicker">Между нами булочками</p><h1 data-portal-title>Для своих</h1></div>
+    </header>
+    <section class="partner-panel" id="partner" aria-labelledby="partner-title">
+      <h2 id="partner-title">Личный кабинет партнёра</h2>
+      <p data-portal-welcome>Войдите, чтобы открыть оптовый ассортимент, цены и историю заявок.</p>
+      <p role="status" aria-live="polite"></p>
+      <form class="partner-form" hidden>
+        <label>Компания<input name="company" autocomplete="organization" maxlength="100"></label>
+        <label>Электронная почта<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+        <label>Пароль<input name="password" type="password" minlength="12" maxlength="128" required></label>
+        <div class="partner-actions">
+          <button class="action" type="submit">Зарегистрироваться</button>
+          <button type="button" data-mode>У меня уже есть аккаунт</button>
+        </div>
+      </form>
+      <div data-dashboard hidden>
+        <div class="partner-actions"><strong data-company></strong><button type="button" data-logout>Выйти</button><a href="#pricebook">В каталог ↓</a></div>
+        <div class="partner-columns">
+          <section><h3>Избранное</h3><ul data-favorites></ul></section>
+          <section><h3>Текущая заявка</h3><ul data-cart></ul><button class="action" type="button" data-order disabled>Сохранить заявку</button></section>
+          <section><h3>История заявок</h3><ul data-history></ul></section>
+        </div>
+      </div>
+    </section>
+    <section id="pricebook" aria-labelledby="assortment-title" data-portal-only hidden>
+      <h2 id="assortment-title" class="portal-catalog-title">Оптовый каталог</h2>
+      <div class="category-tabs" id="wholesale-tabs" aria-label="Категории ассортимента"></div>
+      <div class="controls">
+        <label>Изделие или ингредиент<input type="search" id="wholesale-search" placeholder="Например, тартин или фисташка" aria-controls="wholesale-products"></label>
+        <label>Категория<select id="wholesale-category" aria-controls="wholesale-products">
+          <option value="">Все категории</option>
+          <option value="0">Хлеб на закваске</option>
+          <option value="1">Слоёная выпечка и булочки</option>
+          <option value="2">Десерты</option>
+          <option value="3">Сэндвичи и сытные круассаны</option>
+        </select></label>
+        <label>Фотографии<select id="wholesale-photos" aria-controls="wholesale-products">
+          <option value="">Все изделия</option>
+          <option value="photo">С фотографиями</option>
+          <option value="cut">С фото в разрезе</option>
+        </select></label>
+      </div>
+      <p class="count" id="wholesale-count" role="status"></p>
+      <div id="wholesale-products"></div>
+      <p class="catalog-note">Вес указан для оптовой фасовки. Состав и хранение сверяйте с маркировкой партии.</p>
+    </section>
+    <footer class="book-end">
+      <div><h2>Поставки для вашего заведения</h2><p>Пришлите список изделий, желаемый объём и адрес поставки.</p></div>
+      <a class="action" href="https://t.me/vk_cosmo" target="_blank" rel="noopener noreferrer">Обсудить поставку в Telegram</a>
+    </footer>
     <noscript><p>Для просмотра прайса включите JavaScript или запросите каталог у Веры в Telegram.</p></noscript>
   </main>
 </body>
