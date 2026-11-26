@@ -85,3 +85,10 @@ input,select{width:100%;min-height:42px;margin-top:4px;border:1px solid var(--li
 .category-tabs button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .product-price{font-size:1rem;font-weight:650;margin:0 0 8px}
 @media(min-width:601px) and (max-width:880px){.wh-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+[data-portal]:not(.portal-signed-in) .partner-panel{display:block}
+.portal-catalog-title{margin:0 0 15px}
+.product-offers{list-style:none;margin:0 0 9px;padding:0}
+.product-offers li{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;column-gap:.4rem;padding:3px 0}
+.product-offers .product-weight,.product-offers .product-price{margin:0}
+.product-offers .product-price{font-size:.88rem;white-space:nowrap}

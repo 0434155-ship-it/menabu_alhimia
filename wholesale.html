@@ -6,30 +6,29 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#1b1916">
-  <title>Оптовый каталог · Между Нами Булочками</title>
+  <title>Для своих · Между Нами Булочками</title>
   <link rel="icon" href="assets/logo-0.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="wholesale.css?v=pricebook">
+  <link rel="stylesheet" href="wholesale.css?v=portal">
   <script src="wholesale.js" defer></script>
   <script src="photo-sources.js?v=pricebook" defer></script>
   <script src="wholesale-data.js?v=photo-catalog" defer></script>
-  <script src="partner-catalog.js?v=pricebook" defer></script>
-  <script src="wholesale-catalog.js?v=photo-catalog" defer></script>
+  <script src="partner-catalog.js?v=portal" defer></script>
+  <script src="wholesale-catalog.js?v=portal" defer></script>
 </head>
 <body>
   <header class="mast">
     <div class="wrap mast-inner">
       <a class="wordmark" href="./#top" aria-label="Между Нами Булочками, на главную">Между нами <em>булочками</em></a>
-      <nav aria-label="Каталоги"><a href="./#catalog">Розница</a><a href="preorder/">К празднику</a><a class="nav-account" href="#partner">Кабинет партнёра</a></nav>
+      <nav aria-label="Для партнёров"><a href="./#wholesale">О сотрудничестве</a><a class="nav-account" href="#partner" data-portal-only hidden>Личный кабинет</a><a href="#pricebook" data-portal-only hidden>Оптовый каталог</a></nav>
     </div>
   </header>
-  <main class="wrap">
+  <main class="wrap" data-portal>
     <header class="wh-intro">
-      <div><p class="catalog-kicker">Между нами булочками</p><h1>Оптовый каталог</h1></div>
-      <a class="price-link" href="#partner">Войти для просмотра цен <span aria-hidden="true">↗</span></a>
+      <div><p class="catalog-kicker">Между нами булочками</p><h1 data-portal-title>Для своих</h1></div>
     </header>
     <section class="partner-panel" id="partner" aria-labelledby="partner-title">
-      <h2 id="partner-title">Кабинет оптового партнёра</h2>
-      <p>Сохраняйте любимые изделия и собирайте заявки на поставку.</p>
+      <h2 id="partner-title">Личный кабинет партнёра</h2>
+      <p data-portal-welcome>Войдите, чтобы открыть оптовый ассортимент, цены и историю заявок.</p>
       <p role="status" aria-live="polite"></p>
       <form class="partner-form" hidden>
         <label>Компания<input name="company" autocomplete="organization" maxlength="100"></label>
@@ -49,8 +48,8 @@
         </div>
       </div>
     </section>
-    <section id="pricebook" aria-labelledby="assortment-title">
-      <h2 id="assortment-title" class="visually-hidden">Ассортимент для поставок</h2>
+    <section id="pricebook" aria-labelledby="assortment-title" data-portal-only hidden>
+      <h2 id="assortment-title" class="portal-catalog-title">Оптовый каталог</h2>
       <div class="category-tabs" id="wholesale-tabs" aria-label="Категории ассортимента"></div>
       <div class="controls">
         <label>Изделие или ингредиент<input type="search" id="wholesale-search" placeholder="Например, тартин или фисташка" aria-controls="wholesale-products"></label>

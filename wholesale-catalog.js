@@ -80,11 +80,18 @@
     const weights = product.variants.map(variant => {
       return [variant.label, variant.weight && (variant.weight + ' г')].filter(Boolean).join(' · ');
     }).filter(Boolean);
-    if (weights.length) content.append(element('p', weights.join(' / '), 'product-weight'));
-    const prices = product.variants.map(variant => window.partnerCatalog.price(product, variant)).filter(Number.isFinite);
-    if (prices.length) {
-      const prefix = new Set(prices).size > 1 ? 'От ' : '';
-      content.append(element('p', prefix + rubles.format(Math.min(...prices)) + ' / шт.', 'product-price'));
+    if (product.variants.some(variant => Number.isFinite(window.partnerCatalog.price(product, variant)))) {
+      const offers = element('ul', '', 'product-offers');
+      for (const variant of product.variants) {
+        const label = [variant.label, variant.weight && variant.weight + ' г'].filter(Boolean).join(' · ');
+        const offer = element('li');
+        if (label) offer.append(element('span', label, 'product-weight'));
+        offer.append(element('strong', formatPrice(product, variant), 'product-price'));
+        offers.append(offer);
+      }
+      content.append(offers);
+    } else if (weights.length) {
+      content.append(element('p', weights.join(' / '), 'product-weight'));
     }
 
     const details = element('details', '', 'product-details');
@@ -114,8 +121,12 @@
 
   function render() {
     const selected = category.value;
-    const priceLink = document.querySelector('.price-link');
-    priceLink.firstChild.textContent = window.partnerCatalog.isSignedIn() ? 'Кабинет партнёра ' : 'Войти для просмотра цен ';
+    if (!window.partnerCatalog.isSignedIn()) {
+      window.partnerCatalog.reset();
+      results.replaceChildren();
+      count.textContent = '';
+      return;
+    }
     for (const button of tabs.querySelectorAll('button')) {
       button.setAttribute('aria-pressed', String(button.dataset.category === selected));
     }

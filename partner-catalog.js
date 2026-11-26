@@ -11,7 +11,7 @@
   ])));
   let state;
   let available = false;
-  let registration = true;
+  let registration = false;
   let requestId;
 
   function element(tag,text) {
@@ -40,6 +40,10 @@
   function display() {
     auth.hidden = !available || !!state;
     dashboard.hidden = !state;
+    panel.querySelector('[data-portal-welcome]').hidden = Boolean(state);
+    document.querySelector('[data-portal]').classList.toggle('portal-signed-in', Boolean(state));
+    document.querySelector('[data-portal-title]').textContent = state ? 'Для партнёров' : 'Для своих';
+    for (const section of document.querySelectorAll('[data-portal-only]')) section.hidden = !state;
     for (const [item, group] of controls) {
       for (const buttons of group) {
         buttons.wrap.hidden = !state;
@@ -166,6 +170,7 @@
       await api(registration?'register':'login',Object.fromEntries(new FormData(auth)));
       auth.reset();
       await refresh();
+      if (state) location.hash = 'pricebook';
     } catch(error) { status.textContent=error.message; }
     finally {button.disabled=false;}
   });
@@ -175,6 +180,7 @@
       cart.clear();
       requestId=undefined;
       await refresh();
+      location.hash = 'partner';
     } catch(error) {status.textContent=error.message;}
   });
   panel.querySelector('[data-order]').addEventListener('click',async event=>{
