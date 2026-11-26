@@ -1,6 +1,7 @@
 (() => {
   const search = document.getElementById('wholesale-search');
   const category = document.getElementById('wholesale-category');
+  const photos = document.getElementById('wholesale-photos');
   const count = document.getElementById('wholesale-count');
   const results = document.getElementById('wholesale-products');
 
@@ -11,10 +12,11 @@
     return node;
   }
 
-  function photoGallery(paths, name) {
+  function photoGallery(paths, name, variantLabel) {
     const gallery = element('div', '', 'product-photos');
     for (const path of paths) {
       const info = window.BAKERY_PHOTOS[path];
+      const caption = [variantLabel, info.label].filter(Boolean).join(' · ');
       const figure = element('figure');
       const link = element('a');
       link.href = path;
@@ -22,19 +24,19 @@
       link.rel = 'noopener';
       const image = element('img');
       image.src = path;
-      image.alt = name + ' — ' + info.label.toLowerCase();
+      image.alt = name + ' — ' + caption;
       image.width = info.width;
       image.height = info.height;
       image.loading = 'lazy';
       image.decoding = 'async';
       link.append(image);
-      figure.append(link, element('figcaption', info.label));
+      figure.append(link, element('figcaption', caption));
       gallery.append(figure);
     }
     return gallery;
   }
 
-  function variantDetails(variant, name, sharedPhotos) {
+  function variantDetails(variant) {
     const item = element('div', '', 'variant');
     if (variant.label) item.append(element('h5', variant.label));
     const details = element('dl');
@@ -47,39 +49,52 @@
       details.append(element('dt', label), element('dd', value));
     }
     item.append(details);
-    if (!sharedPhotos && variant.photos.length) item.append(photoGallery(variant.photos, name));
     return item;
   }
 
   function productCard(product) {
-    const row = element('article', '', 'wh-product');
-    const details = element('details', '', 'product-details');
-    const summary = element('summary', '', 'product-summary');
-    const weights = product.variants.map(v => {
-      return [v.label, v.weight && (v.weight + ' г')].filter(Boolean).join(' · ');
+    const card = element('article', '', 'wh-product');
+    const photoSets = product.variants.filter(variant => variant.photos.length);
+    const shared = photoSets.length === product.variants.length &&
+      photoSets.every(variant => variant.photos.join() === photoSets[0].photos.join());
+    if (shared) {
+      card.append(photoGallery(photoSets[0].photos, product.name));
+    } else {
+      for (const variant of photoSets) {
+        card.append(photoGallery(variant.photos, product.name, variant.label));
+      }
+    }
+    const content = element('div', '', 'product-content');
+    content.append(element('h4', product.name));
+    if (product.description) content.append(element('p', product.description, 'product-description'));
+    const weights = product.variants.map(variant => {
+      return [variant.label, variant.weight && (variant.weight + ' г')].filter(Boolean).join(' · ');
     }).filter(Boolean);
-    summary.append(
-      element('h4', product.name),
-      element('span', weights.join(' / ') || 'По запросу', 'product-weight'),
-      element('span', 'Подробнее', 'product-more')
-    );
+    if (weights.length) content.append(element('p', weights.join(' / '), 'product-weight'));
+
+    const details = element('details', '', 'product-details');
+    const summary = element('summary', 'Состав и хранение', 'product-summary');
     details.append(summary);
     const body = element('div', '', 'product-body');
-    const first = product.variants[0].photos;
-    const shared = first.length && product.variants.every(v => v.photos.join() === first.join());
-    if (shared) body.append(photoGallery(first, product.name));
     for (const variant of product.variants) {
-      const content = variantDetails(variant, product.name, shared);
-      content.append(window.partnerCatalog.controls(product, variant));
-      body.append(content);
+      const specification = variantDetails(variant);
+      specification.append(window.partnerCatalog.controls(product, variant));
+      body.append(specification);
     }
     details.append(body);
-    row.append(details);
-    return row;
+    content.append(details);
+    card.append(content);
+    return card;
   }
 
   function normalized(value) {
     return value.toLowerCase().replaceAll('ё', 'е');
+  }
+
+  function hasPhoto(product, cutOnly = false) {
+    return product.variants.some(variant => variant.photos.some(path => {
+      return !cutOnly || window.BAKERY_PHOTOS[path].label.toLowerCase().includes('разрез');
+    }));
   }
 
   function render() {
@@ -87,8 +102,9 @@
     const terms = normalized(search.value).trim().split(/\s+/).filter(Boolean);
     const filtered = window.WHOLESALE_PRODUCTS.filter(product => {
       if (selected !== '' && Number(selected) !== product.category) return false;
+      if (photos.value && !hasPhoto(product, photos.value === 'cut')) return false;
       const searchText = normalized([
-        product.name,
+        product.name, product.description,
         ...product.variants.flatMap(v => [v.label, v.weight, v.ingredients])
       ].join(' '));
       return terms.every(term => searchText.includes(term));
@@ -97,7 +113,8 @@
     const fragment = document.createDocumentFragment();
     for (const option of category.options) {
       if (option.value === '') continue;
-      const products = filtered.filter(product => product.category === Number(option.value));
+      const products = filtered.filter(product => product.category === Number(option.value))
+        .sort((a, b) => Number(hasPhoto(b)) - Number(hasPhoto(a)));
       if (!products.length) continue;
       const group = element('section', '', 'collection');
       group.append(element('h3', option.textContent, 'collection-title'));
@@ -114,5 +131,6 @@
 
   search.addEventListener('input', render);
   category.addEventListener('change', render);
+  photos.addEventListener('change', render);
   render();
 })();

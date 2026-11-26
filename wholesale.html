@@ -8,12 +8,12 @@
   <meta name="theme-color" content="#1b1916">
   <title>Оптовый каталог · Между Нами Булочками</title>
   <link rel="icon" href="assets/logo-0.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="wholesale.css?v=rows">
+  <link rel="stylesheet" href="wholesale.css?v=photo-catalog">
   <script src="wholesale.js" defer></script>
   <script src="photo-sources.js?v=selection" defer></script>
-  <script src="wholesale-data.js?v=rows" defer></script>
+  <script src="wholesale-data.js?v=photo-catalog" defer></script>
   <script src="partner-catalog.js" defer></script>
-  <script src="wholesale-catalog.js?v=rows" defer></script>
+  <script src="wholesale-catalog.js?v=photo-catalog" defer></script>
 </head>
 <body>
   <header class="mast">
@@ -59,6 +59,11 @@
           <option value="1">Слоёная выпечка и булочки</option>
           <option value="2">Десерты</option>
           <option value="3">Сэндвичи и сытные круассаны</option>
+        </select></label>
+        <label>Фотографии<select id="wholesale-photos" aria-controls="wholesale-products">
+          <option value="">Все изделия</option>
+          <option value="photo">С фотографиями</option>
+          <option value="cut">С фото в разрезе</option>
         </select></label>
       </div>
       <p class="count" id="wholesale-count" role="status"></p>
