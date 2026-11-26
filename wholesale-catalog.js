@@ -46,26 +46,36 @@
     ]) {
       details.append(element('dt', label), element('dd', value));
     }
-    item.append(details, window.partnerCatalog.controls({name}, variant));
+    item.append(details);
     if (!sharedPhotos && variant.photos.length) item.append(photoGallery(variant.photos, name));
     return item;
   }
 
   function productCard(product) {
-    const article = element('article', '', 'wh-product');
-    const photos = product.variants[0].photos;
-    const sharedPhotos = photos.length > 0 && product.variants.every(v => v.photos.join() === photos.join());
-    if (sharedPhotos) article.append(photoGallery(photos, product.name));
-    article.append(element('h4', product.name));
-    const summary = product.variants.map(v => {
+    const row = element('article', '', 'wh-product');
+    const details = element('details', '', 'product-details');
+    const summary = element('summary', '', 'product-summary');
+    const weights = product.variants.map(v => {
       return [v.label, v.weight && (v.weight + ' г')].filter(Boolean).join(' · ');
-    }).filter(Boolean).join(' / ');
-    if (summary) article.append(element('p', summary, 'muted'));
-    const details = element('details');
-    details.append(element('summary', product.variants.length > 1 ? 'Фасовки, состав и хранение' : 'Состав и хранение'));
-    details.append(...product.variants.map(variant => variantDetails(variant, product.name, sharedPhotos)));
-    article.append(details);
-    return article;
+    }).filter(Boolean);
+    summary.append(
+      element('h4', product.name),
+      element('span', weights.join(' / ') || 'По запросу', 'product-weight'),
+      element('span', 'Подробнее', 'product-more')
+    );
+    details.append(summary);
+    const body = element('div', '', 'product-body');
+    const first = product.variants[0].photos;
+    const shared = first.length && product.variants.every(v => v.photos.join() === first.join());
+    if (shared) body.append(photoGallery(first, product.name));
+    for (const variant of product.variants) {
+      const content = variantDetails(variant, product.name, shared);
+      content.append(window.partnerCatalog.controls(product, variant));
+      body.append(content);
+    }
+    details.append(body);
+    row.append(details);
+    return row;
   }
 
   function normalized(value) {

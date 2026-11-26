@@ -7,7 +7,7 @@ const CATS=[
  {id:'dessert',name:'Десерты',icon:'i-cake',img:'muka/selection/1949.jpg',kick:'обновляем витрину каждый сезон'},
  {id:'cakes',name:'Торты',icon:'i-cake',img:'1009_1',kick:'целиком или по частям'},
  {id:'sand',name:'Сэндвичи',icon:'i-sandwich',img:'1012_4c',kick:'на нашем хлебе и круассанах'},
- {id:'exclusive',name:'Исключительно для вас',icon:'i-loaf',img:'muka/selection/1048.jpg',kick:'готовим по предварительному заказу'},
+ {id:'exclusive',name:'Исключительно для вас',icon:'i-loaf',img:null,kick:'готовим по предварительному заказу'},
 ].filter(category => RETAIL_PRODUCTS.some(product => product.c === category.id));
 const P = RETAIL_PRODUCTS;
 

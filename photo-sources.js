@@ -33,17 +33,6 @@ window.BAKERY_PHOTOS = {
     "label": "Целиком",
     "post": "https://t.me/menabu_bakery/860"
   },
-  "muka/selection/1048.jpg": {
-    "width": 716,
-    "height": 716,
-    "sizes": [],
-    "tones": [
-      "#2e211a",
-      "#3e2b20"
-    ],
-    "label": "Целиком",
-    "post": "https://t.me/menabu_bakery/1048"
-  },
   "muka/selection/1448.jpg": {
     "width": 533,
     "height": 800,

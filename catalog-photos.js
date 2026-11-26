@@ -15,11 +15,6 @@ window.CATALOG_VIEWS = {
       "muka/selection/860.jpg"
     ]
   ],
-  "p26": [
-    [
-      "muka/selection/1048.jpg"
-    ]
-  ],
   "p23": [
     [
       "muka/selection/1448.jpg",
